@@ -5,7 +5,7 @@ import {
   Plus, Search, Check, X, Sparkles, MapPin, Bell,
   TrendingUp, Trash2, Calendar, Package, ShoppingCart,
   BarChart3, Inbox, Pencil, History, ArrowLeftRight, IndianRupee,
-  Download, Truck, PhoneCall, AlertTriangle, MessageSquare
+  Download, Truck, AlertTriangle
 } from 'lucide-react';
 
 // Spoilage urgency bar
@@ -36,6 +36,93 @@ const CATEGORY_IMAGES = {
   Spices: '/crop_onions.jpg',
   Oilseeds: '/crop_rice.jpg',
 };
+
+const CropForm = ({ formData, setFormData, onSubmit, submitLabel, onCancel }) => (
+  <form onSubmit={onSubmit} className="space-y-3">
+    <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 space-y-3">
+      <p className="text-xs font-bold text-emerald-800">Farmer Identity</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
+          <input type="text" required placeholder="Ramesh Patil" value={formData.farmerName}
+            onChange={(e) => setFormData({ ...formData, farmerName: e.target.value })}
+            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-slate-700 mb-1">Your Contact *</label>
+          <input type="text" required placeholder="+91 98230 44123" value={formData.farmerContact}
+            onChange={(e) => setFormData({ ...formData, farmerContact: e.target.value })}
+            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label className="block text-xs font-semibold text-slate-700 mb-1">Crop Name *</label>
+      <input type="text" required placeholder="e.g. Alphonso Mangoes" value={formData.cropName}
+        onChange={(e) => setFormData({ ...formData, cropName: e.target.value })}
+        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+    </div>
+
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Category *</label>
+        <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
+          {['Fruits', 'Vegetables', 'Grains', 'Pulses', 'Spices', 'Oilseeds'].map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </div>
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Quality Grade *</label>
+        <select value={formData.quality} onChange={(e) => setFormData({ ...formData, quality: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
+          <option value="Grade A">Grade A (Export)</option>
+          <option value="Grade B">Grade B (Standard)</option>
+          <option value="Grade C">Grade C (Processing)</option>
+        </select>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Available Stock (kg) *</label>
+        <input type="number" required placeholder="2500" value={formData.quantityStock}
+          onChange={(e) => setFormData({ ...formData, quantityStock: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+      </div>
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Asking Price (₹/kg) *</label>
+        <input type="number" required placeholder="180" value={formData.askingPrice}
+          onChange={(e) => setFormData({ ...formData, askingPrice: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-2 gap-3">
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Location *</label>
+        <input type="text" required placeholder="Nashik, Maharashtra" value={formData.location}
+          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+      </div>
+      <div>
+        <label className="block text-xs font-semibold text-slate-700 mb-1">Harvesting Date *</label>
+        <input type="date" required value={formData.harvestingDate}
+          onChange={(e) => setFormData({ ...formData, harvestingDate: e.target.value })}
+          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
+      </div>
+    </div>
+
+    <div className="flex justify-end gap-2 pt-3">
+      <button type="button" onClick={onCancel}
+        className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors">Cancel</button>
+      <button type="submit"
+        className="px-5 py-2 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-800 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold text-xs transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm">
+        {submitLabel}
+      </button>
+    </div>
+  </form>
+);
 
 export const FarmerSide = () => {
   const {
@@ -129,92 +216,6 @@ export const FarmerSide = () => {
   const totalSold = crops.filter((c) => c.status === 'SOLD').length;
   const totalRevenue = acceptedRequests.reduce((sum, r) => sum + (r.requestedPrice * r.requestedQuantity), 0);
 
-  const CropForm = ({ onSubmit, title, submitLabel }) => (
-    <form onSubmit={onSubmit} className="space-y-3">
-      <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 space-y-3">
-        <p className="text-xs font-bold text-emerald-800">Farmer Identity</p>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
-            <input type="text" required placeholder="Ramesh Patil" value={formData.farmerName}
-              onChange={(e) => setFormData({ ...formData, farmerName: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Your Contact *</label>
-            <input type="text" required placeholder="+91 98230 44123" value={formData.farmerContact}
-              onChange={(e) => setFormData({ ...formData, farmerContact: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1">Crop Name *</label>
-        <input type="text" required placeholder="e.g. Alphonso Mangoes" value={formData.cropName}
-          onChange={(e) => setFormData({ ...formData, cropName: e.target.value })}
-          className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Category *</label>
-          <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
-            {['Fruits', 'Vegetables', 'Grains', 'Pulses', 'Spices', 'Oilseeds'].map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Quality Grade *</label>
-          <select value={formData.quality} onChange={(e) => setFormData({ ...formData, quality: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none">
-            <option value="Grade A">Grade A (Export)</option>
-            <option value="Grade B">Grade B (Standard)</option>
-            <option value="Grade C">Grade C (Processing)</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Available Stock (kg) *</label>
-          <input type="number" required placeholder="2500" value={formData.quantityStock}
-            onChange={(e) => setFormData({ ...formData, quantityStock: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Asking Price (₹/kg) *</label>
-          <input type="number" required placeholder="180" value={formData.askingPrice}
-            onChange={(e) => setFormData({ ...formData, askingPrice: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Location *</label>
-          <input type="text" required placeholder="Nashik, Maharashtra" value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">Harvesting Date *</label>
-          <input type="date" required value={formData.harvestingDate}
-            onChange={(e) => setFormData({ ...formData, harvestingDate: e.target.value })}
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none" />
-        </div>
-      </div>
-
-      <div className="flex justify-end gap-2 pt-3">
-        <button type="button" onClick={() => { setShowAddModal(false); setEditingCrop(null); }}
-          className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors">Cancel</button>
-        <button type="submit"
-          className="px-5 py-2 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-800 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold text-xs transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm">
-          {submitLabel}
-        </button>
-      </div>
-    </form>
-  );
 
   return (
     <div className="space-y-6 py-2">
@@ -673,7 +674,7 @@ export const FarmerSide = () => {
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors"><X className="h-5 w-5" /></button>
             </div>
             <p className="text-xs text-slate-500 mb-4">Fill in all details to publish your crop to buyers.</p>
-            <CropForm onSubmit={handleAddSubmit} title="Add Crop" submitLabel="Publish Listing" />
+            <CropForm formData={formData} setFormData={setFormData} onSubmit={handleAddSubmit} submitLabel="Publish Listing" onCancel={() => setShowAddModal(false)} />
           </div>
         </div>
       )}
@@ -687,7 +688,7 @@ export const FarmerSide = () => {
               <button onClick={() => setEditingCrop(null)} className="text-slate-400 hover:text-slate-600 transition-colors"><X className="h-5 w-5" /></button>
             </div>
             <p className="text-xs text-slate-500 mb-4">Update details for <strong>{editingCrop.cropName}</strong></p>
-            <CropForm onSubmit={handleEditSubmit} title="Edit Crop" submitLabel="Save Changes" />
+            <CropForm formData={formData} setFormData={setFormData} onSubmit={handleEditSubmit} submitLabel="Save Changes" onCancel={() => setEditingCrop(null)} />
           </div>
         </div>
       )}

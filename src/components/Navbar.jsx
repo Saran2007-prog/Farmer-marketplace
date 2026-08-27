@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '../store/useStore';
-import { Sprout, ShoppingBag, Home, Bell, LogOut, User } from 'lucide-react';
+import { Sprout, ShoppingBag, Home, Bell, LogOut } from 'lucide-react';
 
 export const Navbar = () => {
   const { activeRole, setActiveRole, toasts, removeToast, buyerRequests, currentUser, logout } = useStore();

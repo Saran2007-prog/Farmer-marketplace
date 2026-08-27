@@ -7,6 +7,7 @@ import React from 'react';
  * @param {string} fillColor - Fill gradient start color
  */
 export const SparklineChart = ({ data = [], isUp, isDown }) => {
+  const gradId = React.useId();
   if (!data || data.length < 2) return null;
 
   const w = 120, h = 40, pad = 4;
@@ -29,8 +30,6 @@ export const SparklineChart = ({ data = [], isUp, isDown }) => {
   const stroke = isUp ? '#10b981' : isDown ? '#f43f5e' : '#94a3b8';
   const fillStart = isUp ? '#10b98130' : isDown ? '#f43f5e30' : '#94a3b820';
   const fillEnd = isUp ? '#10b98105' : isDown ? '#f43f5e05' : '#94a3b805';
-
-  const gradId = `sg-${isUp ? 'up' : isDown ? 'dn' : 'st'}-${Math.random().toString(36).slice(2,6)}`;
 
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-10" preserveAspectRatio="none">

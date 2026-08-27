@@ -6,7 +6,6 @@ import {
   SlidersHorizontal,
   Send,
   MapPin,
-  Phone,
   User,
   ArrowUpDown,
   X,

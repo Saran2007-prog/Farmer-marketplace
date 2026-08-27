@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '../../store/useStore';
-import { Sprout, ShoppingBag, ArrowRight, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react';
+import { Sprout, ShoppingBag, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const StaticLandingPage = () => {
   const { setActiveRole } = useStore();
