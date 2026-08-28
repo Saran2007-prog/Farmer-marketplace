@@ -1,8 +1,10 @@
 import React from 'react';
 import { useStore } from '../store/useStore';
+import { useTranslation } from 'react-i18next';
 import { Sprout, ShoppingBag, Bell, LogOut } from 'lucide-react';
 
 export const Navbar = () => {
+  const { t } = useTranslation();
   const { activeRole, toasts, removeToast, buyerRequests, currentUser, logout } = useStore();
 
   const userRole = currentUser?.role || activeRole;
@@ -22,7 +24,7 @@ export const Navbar = () => {
               AgriMarket
             </span>
             <span className="text-[10px] text-slate-500 font-medium leading-none block">
-              Direct Farmer & Buyer Platform
+              {t('platform_subtitle')}
             </span>
           </div>
         </div>
@@ -33,7 +35,7 @@ export const Navbar = () => {
             {userRole === 'farmer' && (
               <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-800 font-bold border border-emerald-200 text-sm shadow-sm relative">
                 <Sprout className="h-4 w-4 text-emerald-600 animate-pulse" />
-                <span>Farmer Portal</span>
+                <span>{t('nav_farmer_portal')}</span>
                 {pendingCount > 0 && (
                   <span className="px-2 py-0.5 rounded-full text-[11px] bg-emerald-600 text-white font-bold animate-pulse-slow shadow-sm">
                     {pendingCount}
@@ -45,7 +47,7 @@ export const Navbar = () => {
             {userRole === 'buyer' && (
               <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50 text-blue-800 font-bold border border-blue-200 text-sm shadow-sm">
                 <ShoppingBag className="h-4 w-4 text-blue-600" />
-                <span>Buyer Dashboard</span>
+                <span>{t('nav_buyer_dashboard')}</span>
               </div>
             )}
           </div>

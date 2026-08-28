@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useStore } from '../../store/useStore';
+import { useTranslation } from 'react-i18next';
 import { Sprout, ShoppingBag, ArrowRight, Leaf, IndianRupee } from 'lucide-react';
 
 export const LoginScreen = () => {
   const { login } = useStore();
+  const { t } = useTranslation();
   const [step, setStep] = useState(1); // 1: role select, 2: details
   const [selectedRole, setSelectedRole] = useState(null);
   const [name, setName] = useState('');
@@ -21,7 +23,7 @@ export const LoginScreen = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="flex-1 flex">
       {/* Left Panel — Image */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img
@@ -38,18 +40,18 @@ export const LoginScreen = () => {
             <span className="text-xl font-bold">AgriMarket</span>
           </div>
           <h2 className="text-4xl font-extrabold leading-tight mb-3">
-            India's Smartest<br />Farm-to-Buyer<br />Marketplace
+            {t('login_hero_title')}
           </h2>
           <p className="text-emerald-200 text-base font-medium max-w-sm">
-            Connecting farmers directly to buyers. No middlemen. Better prices. Real-time market intelligence.
+            {t('login_hero_subtitle')}
           </p>
 
           {/* Stats */}
           <div className="mt-8 grid grid-cols-3 gap-4">
             {[
-              { label: 'Active Farmers', value: '12,400+' },
-              { label: 'Buyers Registered', value: '3,800+' },
-              { label: 'Avg. Price Gain', value: '22%' },
+              { label: t('stat_active_farmers'), value: '12,400+' },
+              { label: t('stat_buyers'), value: '3,800+' },
+              { label: t('stat_price_gain'), value: '22%' },
             ].map((s) => (
               <div key={s.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
                 <p className="text-xl font-extrabold text-white">{s.value}</p>
@@ -75,8 +77,8 @@ export const LoginScreen = () => {
           {step === 1 && (
             <div className="animate-fade-in-up space-y-6">
               <div>
-                <h1 className="text-3xl font-extrabold text-slate-900">Welcome Back 👋</h1>
-                <p className="text-slate-500 mt-2 text-base">Who are you entering as today?</p>
+                <h1 className="text-3xl font-extrabold text-slate-900">{t('login_welcome')} 👋</h1>
+                <p className="text-slate-500 mt-2 text-base">{t('login_role_prompt')}</p>
               </div>
 
               <div className="space-y-3">
@@ -89,8 +91,8 @@ export const LoginScreen = () => {
                     <Sprout className="h-7 w-7 text-emerald-700 group-hover:text-white transition-colors duration-300" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-emerald-800 transition-colors">I'm a Farmer</h3>
-                    <p className="text-sm text-slate-500 mt-0.5">List crops, track prices, manage buyer requests</p>
+                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-emerald-800 transition-colors">{t('login_im_farmer')}</h3>
+                    <p className="text-sm text-slate-500 mt-0.5">{t('login_farmer_desc')}</p>
                   </div>
                   <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all duration-200" />
                 </button>
@@ -104,8 +106,8 @@ export const LoginScreen = () => {
                     <ShoppingBag className="h-7 w-7 text-blue-700 group-hover:text-white transition-colors duration-300" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-800 transition-colors">I'm a Buyer</h3>
-                    <p className="text-sm text-slate-500 mt-0.5">Browse crops, find farmers, send purchase requests</p>
+                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-800 transition-colors">{t('login_im_buyer')}</h3>
+                    <p className="text-sm text-slate-500 mt-0.5">{t('login_buyer_desc')}</p>
                   </div>
                   <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200" />
                 </button>
@@ -119,7 +121,7 @@ export const LoginScreen = () => {
 
               <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200">
                 <IndianRupee className="h-4 w-4 text-amber-600 shrink-0" />
-                <p className="text-xs text-amber-800 font-medium">No commission. Farmers keep 100% of their earnings.</p>
+                <p className="text-xs text-amber-800 font-medium">{t('login_no_commission')}</p>
               </div>
             </div>
           )}
@@ -131,22 +133,22 @@ export const LoginScreen = () => {
                 onClick={() => setStep(1)}
                 className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 text-sm font-medium transition-colors mb-2"
               >
-                ← Back
+                ← {t('login_back')}
               </button>
 
               <div>
                 <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold mb-3 ${selectedRole === 'farmer' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}`}>
                   {selectedRole === 'farmer' ? <Sprout className="h-4 w-4" /> : <ShoppingBag className="h-4 w-4" />}
-                  {selectedRole === 'farmer' ? 'Farmer Portal' : 'Buyer Dashboard'}
+                  {selectedRole === 'farmer' ? t('nav_farmer_portal') : t('nav_buyer_dashboard')}
                 </div>
-                <h1 className="text-3xl font-extrabold text-slate-900">Tell us about you</h1>
-                <p className="text-slate-500 mt-2 text-base">Enter your details to get started.</p>
+                <h1 className="text-3xl font-extrabold text-slate-900">{t('login_tell_us')}</h1>
+                <p className="text-slate-500 mt-2 text-base">{t('login_enter_details')}</p>
               </div>
 
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
-                    {selectedRole === 'farmer' ? 'Your Full Name *' : 'Your Name / Company Name *'}
+                    {selectedRole === 'farmer' ? t('login_full_name_farmer') : t('login_full_name_buyer')}
                   </label>
                   <input
                     type="text"
@@ -161,7 +163,7 @@ export const LoginScreen = () => {
 
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
-                    Phone Number <span className="text-slate-400 font-normal">(optional)</span>
+                    {t('login_phone')} <span className="text-slate-400 font-normal">({t('login_optional')})</span>
                   </label>
                   <input
                     type="tel"
@@ -180,7 +182,7 @@ export const LoginScreen = () => {
                       : 'bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-200 hover:shadow-lg'
                   }`}
                 >
-                  Enter {selectedRole === 'farmer' ? 'Farmer Portal' : 'Buyer Dashboard'}
+                  {t('login_enter_btn')} {selectedRole === 'farmer' ? t('nav_farmer_portal') : t('nav_buyer_dashboard')}
                   <ArrowRight className="h-5 w-5" />
                 </button>
               </form>
